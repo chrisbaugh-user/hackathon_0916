@@ -15,7 +15,7 @@ query_titles = queries.groupby('category')[['query_uuid']].count()
 query_titles.sort_values(by='query_uuid',inplace=True, ascending=False)
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
-
+submit = False
 
 if sidebar_selector == 'Query Repo':
     st.title('Query Repository')
@@ -42,8 +42,10 @@ if sidebar_selector == 'Scheduler':
         day_frequency = st.radio('Select Day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
     submit = st.button('Submit')
     if submit:
-        pass
-    #kick off cloud function cloud_function(query_uuid, sheet_link, tab_name, job_frequency, day_frequency)
+        st.title('Your job is now scheduled, please reload page to schedule more jobs')
+        #kick off cloud function cloud_function(query_uuid, sheet_link, tab_name, job_frequency, day_frequency)
+
+
 
 if sidebar_selector == 'Map':
     st.title('Map Upload')
