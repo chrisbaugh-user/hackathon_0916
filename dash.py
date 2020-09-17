@@ -194,18 +194,17 @@ def generate_turb_chart(df):
 
 if sidebar_selector == 'Query Repo':
     st.title('Query Repository')
-    for index, values in query_titles.iterrows():
-        st.header(index)
-        temp_df = queries[queries['category'] == index]
-        for index, row in temp_df.iterrows():
-            st.markdown('**' + row['query_name'] +'**' + ' - ' +  row['query_uuid'])
-            #st.write(row['query_name'], '-', row['query_uuid'])
-            #sql_button = st.checkbox('SQL', key=row['query_name'])
-            #if sql_button:
-             #   st.write(row['SQL'])
-            sample_data = st.checkbox('Sample Data', key=row['query_uuid'])
-            if sample_data:
-                st.write(row['json_data'])
+    query_selector = st.selectbox('Select Category', sorted(queries.category.unique().tolist()))
+    temp_df = queries[queries['category'] == query_selector]
+    for index, row in temp_df.iterrows():
+        st.markdown('**' + row['query_name'] +'**' + ' - ' +  row['query_uuid'])
+        #st.write(row['query_name'], '-', row['query_uuid'])
+        #sql_button = st.checkbox('SQL', key=row['query_name'])
+        #if sql_button:
+         #   st.write(row['SQL'])
+        sample_data = st.checkbox('Sample Data', key=row['query_uuid'])
+        if sample_data:
+            st.write(row['json_data'])
 
 if sidebar_selector == 'Scheduler':
     st.title('Scheduler')
